@@ -42,16 +42,27 @@ download_url(urls[0], dest, show_progress=False)
 im = Image.open(dest)
 im.to_thumb(256,256)
 
-
-download_url(search_images('forest photos', max_images=1)[0], 'forest.jpg', show_progress=False)
+forest_url = search_images('forest photos', max_images=1);
+print(forest_url[0])
+download_url(forest_url[0], 'forest.jpg', show_progress=False)
 Image.open('forest.jpg').to_thumb(256,256)
 
 
-download_url(search_images('forest photos', max_images=1)[0], 'forest.jpg', show_progress=False)
-Image.open('forest.jpg').to_thumb(256,256)
+kite_url = search_images('panda photos', max_images=1);
+print(kite_url[0])
+download_url(kite_url[0], 'panda.jpg', show_progress=False)
+Image.open('panda.jpg').to_thumb(256,256)
 
-searches = 'forest','bird'
-path = Path('bird_or_not')
+
+red_fox_url = search_images('fox photos', max_images=1);
+print(red_fox_url[0])
+download_url(red_fox_url[0], 'fox.jpg', show_progress=False)
+Image.open('fox.jpg').to_thumb(256,256)
+
+
+
+searches = 'forest','bird', 'panda', 'fox'
+path = Path('fox_or_not')
 
 for o in searches:
     dest = (path/o)
@@ -72,14 +83,15 @@ dls = DataBlock( # type: ignore
     item_tfms=[Resize(192, method='squish')] # type: ignore
 ).dataloaders(path, bs=32)
 
-dls.show_batch(max_n=6)
+dls.show_batch()
 
 learn = vision_learner(dls, resnet18, metrics=error_rate) # type: ignore
 learn.fine_tune(3)
 
-is_bird,_,probs = learn.predict(PILImage.create('bird.jpg'))  # type: ignore
+is_bird,_,probs = learn.predict(PILImage.create('tiger.jpg'))  # type: ignore
 print(f"This is a: {is_bird}.")
 print(f"Probability it's a bird: {probs[0]:.4f}")
+print(f"Probability it's a bird: {probs}")
 
 
 
