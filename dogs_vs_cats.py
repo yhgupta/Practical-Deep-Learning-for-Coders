@@ -7,13 +7,14 @@ learn = load_learner('model.pkl')
 
 categories = ('Dog', 'Cat')
 
-def classify_image(img):
-    pred,idx,probs = learn.predict(img)
-    return dict(zip(categories, map(float,probs)))
+def predict(img):
+    _, _, probs = learn.predict(PILImage.create(img))
+    return {"Dog": float(probs[0]), "Cat": float(probs[1])}
 
-image = gr.Image()
+
+image = gr.Image(type='pil')
 label = gr.Label()
 examples = ['dog.jpg', 'cat.jpg', 'dunno.jpg']
 
-intf = gr.Interface(fn=classify_image, inputs=image, outputs=label, examples=examples)
+intf = gr.Interface(fn=predict, inputs=image, outputs=label, examples=examples)
 intf.launch(inline=False)
