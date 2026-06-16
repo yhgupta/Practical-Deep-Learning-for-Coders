@@ -94,6 +94,7 @@ print(f"Probability it's a bird: {probs[0]:.4f}")
 print(f"Probability it's a bird: {probs}")
 
 
+learn.export()
 
 # pip3 install ddgs
 # pip3 install -q duckduckgo_search
