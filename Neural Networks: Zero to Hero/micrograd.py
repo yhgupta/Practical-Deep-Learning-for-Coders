@@ -3,6 +3,8 @@ import random
 import numpy as np
 import matplotlib.pyplot as plt
 from graphviz import Digraph
+import torch 
+
 
 
 class Value:
@@ -129,10 +131,6 @@ def draw_dot(root):
 
     return dot
 
-
-draw_dot(o).render('sigmoid', format='svg', cleanup=True)
-
-import torch 
 
 class Neuron:
 
